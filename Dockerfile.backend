@@ -1,0 +1,22 @@
+# Dockerfile.backend
+
+# Use an official Node.js image as the base image
+FROM node:18
+
+# Set the working directory in the container
+WORKDIR /backend
+
+# Copy the package.json file into the container
+COPY ./backend/package*.json ./
+
+# Install the dependencies
+RUN npm install
+
+# Copy the rest of the application code into the container
+COPY ./backend .
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Run the app
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = 'development' ]; then npm run dev; else npm start; fi"]
